@@ -1,0 +1,8 @@
+C:\Users\USER\Documents\Программы\array\array\bin\Debug\array.exe.config
+C:\Users\USER\Documents\Программы\array\array\bin\Debug\array.exe
+C:\Users\USER\Documents\Программы\array\array\bin\Debug\array.pdb
+C:\Users\USER\Documents\Программы\array\array\obj\Debug\array.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Программы\array\array\obj\Debug\array.csproj.SuggestedBindingRedirects.cache
+C:\Users\USER\Documents\Программы\array\array\obj\Debug\array.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Программы\array\array\obj\Debug\array.exe
+C:\Users\USER\Documents\Программы\array\array\obj\Debug\array.pdb
