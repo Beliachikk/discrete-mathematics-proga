@@ -1,84 +1,106 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
 
-namespace methods_array
+namespace queue_methods
 {
     internal class Program
     {
-        public static void PrintV(int[] a)//принт для int
+        public static void PrintValues(Array myArr, char mySeparator)
         {
-            foreach(int i in a)
+            foreach (Object myObj in myArr)
             {
-                Console.WriteLine("\t{0}",i);
+                Console.Write("{0}{1}", mySeparator, myObj);
             }
             Console.WriteLine();
         }
-        public static void PrintV(Object[] b)//принт для object
+        public static void Print(Queue q)
         {
-            foreach (int i in b)
-            {
-                Console.WriteLine("\t{0}", i);
-            }
+            Console.Write("Содержимое очереди:");
+            foreach (string i in q)
+                Console.Write(i + " ");
             Console.WriteLine();
         }
-        public static void Copyy(int[] a, Object[] b, int c)//1 копирование первых элементов из одного массива в другой
+        public static void ShowEnq(Queue q,string a)//1 помещаем в очередь
         {
-            System.Array.Copy(a, b, c);
-            PrintV(a);
-            PrintV(b);
+            q.Enqueue(a);
+            Console.WriteLine("Поместить в очередь:Enqueue(" + a + ")");
+            Print(q);
+        }
+        public static void ShowDeq(Queue q)//2 возвращает и удаляет объект из начала очереди
+        {
+            Console.Write("Извлечь из очереди:Dequeue->");
+            string a=(string)q.Dequeue(); 
+            Console.WriteLine(a);
+            Print(q);
+        }
+        public static void Clear(Queue q)//3
+        {
+            q.Clear();
+            Print(q);
+        }
+        public static void Contains(Queue q,string a)//4
+        {
+           Console.WriteLine( q.Contains(a));
+        }
+        public static void Peek(Queue q)
+        {
+            Console.Write("Извлечь из очереди:Peek->");//5 типа dequeue, но без удаления
+            string a = (string)q.Peek();
+            Console.WriteLine(a);
+            Print(q);
+        }
+        public static void ToArray(Queue q,Array a)//6 возвращает массив, который хранит копии элементов из очередиии
+        {
+            q.CopyTo(a, 6);
+            Console.WriteLine("Содержимое массива с копиями:");
+            PrintValues(a, ' ');
+        }
+        public static void TrimToSize(Queue q)//7
+        {
+            q.TrimToSize();
+            Print(q);
         }
 
-        public static void IsFixedSizee(int[] a)//2 должно true вывести
+        public static void Synchronized(Queue q)//8
         {
-            Console.WriteLine(a.IsFixedSize);
+            Console.WriteLine(q.IsSynchronized);
         }
-        public static void Lengthh(int[] a)//3 длина
+        public static void TrimExcess(Queue q)//9 эта штука позволяет избавиться от пустых элементов в начале очереди
         {
-            Console.WriteLine(a.Length);
-        }
-        public static void Rankk(int[] a)//4 кол-во измерений
-        {
-            Console.WriteLine(a.Rank);
-        }
-        public static void Clearr(int[] a,int x, int y)//5 
-        {
-            Array.Clear(a, x, y);
-            PrintV(a);
-        }
-        public static void Equall(int[] a, object[] b)//6 равенство
-        {
-            Console.WriteLine(a.Equals(b)); 
-        }
-        public static void Findd (int[] a,int x)//7
-        {
-            Console.WriteLine(Array.Find(a, k => k == x));
-        }
-        public static void GetValuee(int[] a, int x)//8 получает значение, хранящееся в указанной позиции одномерного массива
-        {
-            Console.WriteLine(a.GetValue(x));//8
-        }
-        public static void Reversee(int[] a, int x, int y)//9 
-        {
-            Array.Reverse(a, x, y);
-            PrintV(a);
+            TrimExcess(q);
+            Print(q);
         }
         static void Main(string[] args)
         {
-            int[] myInt = new int[5] { 1, 2, 3, 4, 5 };
-            Object[] myObj = new Object[5] {26,27,28,29,30};
-         
+            Queue q = new Queue();
+           q.Enqueue("three");
+            q.Enqueue("napping");
+            q.Enqueue("cats");
+           q.Enqueue("in");
+            q.Enqueue("the");
+           q.Enqueue("barn");
+
+            Array myTargetArray = Array.CreateInstance(typeof(string), 15);
+            myTargetArray.SetValue("The", 0);
+            myTargetArray.SetValue("quick", 1);
+            myTargetArray.SetValue("brown", 2);
+            myTargetArray.SetValue("fox", 3);
+            myTargetArray.SetValue("jumps", 4);
+            myTargetArray.SetValue("over", 5);
+            myTargetArray.SetValue("the", 6);
+            myTargetArray.SetValue("lazy", 7);
+            myTargetArray.SetValue("dog", 8);
             bool k = true;
 
             while (k == true)
             {
                 Console.Clear();
-                string[] menu = new string[] { "Copy", " IsFixedSize", "Length", "Rank", "Clear", "Equals", "Find", "GetValue", "Reverse" };
+                string[] menu = new string[] { "ShowEnq", "ShowDeq", "Clear", "Contains", "Peek", "ToArray", "TrimToSize", "Synchronized", "Reverse" };
                 Console.WriteLine($"{menu[0]}\n{menu[1]}\n{menu[2]}\n{menu[3]}\n{menu[4]}\n{menu[5]}\n{menu[6]}\n{menu[7]}\n{menu[8]}\n");
                 Console.SetCursorPosition(30, 0);
                 bool x = true;
@@ -91,63 +113,63 @@ namespace methods_array
                         if (ke.Key == ConsoleKey.Enter && j == 0)
                         {
                             Console.Clear();
-                            Copyy(myInt,myObj,3);
+                            ShowEnq(q,"2");
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 1)
                         {
                             Console.Clear();
-                            IsFixedSizee(myInt);
+                            ShowDeq(q);
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 2)
                         {
                             Console.Clear();
-                            Lengthh(myInt);
+                            Clear(q);
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 3)
                         {
                             Console.Clear();
-                            Rankk(myInt);
+                            Contains(q,"three");
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 4)
                         {
                             Console.Clear();
-                            Clearr(myInt,1,2);
+                            Peek(q);
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 5)
                         {
                             Console.Clear();
-                            Equall(myInt,myObj);
+                            ToArray(q, myTargetArray);
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 6)
                         {
                             Console.Clear();
-                            Findd(myInt,3);
+                            TrimToSize(q);
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 7)
                         {
                             Console.Clear();
-                            GetValuee(myInt,3);
+                            Synchronized(q);
                             Thread.Sleep(3000);
                             x = false;
                         }
                         else if (ke.Key == ConsoleKey.Enter && j == 8)
                         {
                             Console.Clear();
-                            Reversee(myInt,1,3);
+                            TrimExcess(q);
                             Thread.Sleep(3000);
                             x = false;
                         }
